@@ -190,7 +190,16 @@
   //          No accumulator is given so the first element is used.
   _.reduce = function(collection, iterator, accumulator) {
 
+    if (accumulator !== 0) {
+      var accumulator = accumulator || collection[0];
+      if (arguments.length < 3) { collection = collection.slice(1); }
+    }
 
+    _.each(collection, (item) => {
+      accumulator = iterator(accumulator, item);
+    });
+
+    return accumulator;
   };
 
   // Determine if the array or object contains a given value (using `===`).
